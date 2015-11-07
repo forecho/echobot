@@ -53,8 +53,6 @@ function logs($word = '')
     fclose($fp);
 }
 
-
-outgoing(['text' => 'test']);
 echo '$_POST接收:<br/>';
 logs('$_POST接收:' . json_encode($_POST));
 print_r($_POST);
@@ -63,6 +61,9 @@ echo '<hr/>';
 echo 'php://input接收:<br/>';
 $data = file_get_contents('php://input');
 logs('php://input接收:' . json_encode($data));
+if ($data) {
+    outgoing(['text' => 'php://input接收:' . json_encode($data)]);
+}
 print_r($data); 
 
 
