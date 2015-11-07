@@ -46,7 +46,7 @@ function outgoing($data = '')
 function logs($word = '')
 {
     $data = date('Ym');
-    $fp = fopen("log-{$data}.txt", "a");
+    $fp = fopen("logs/log-{$data}.txt", "a");
     flock($fp, LOCK_EX);
     fwrite($fp, "执行日期：" . strftime("%Y%m%d%H%M%S", time()) . "\n" . $word . "\n");
     flock($fp, LOCK_UN);
