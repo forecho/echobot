@@ -63,7 +63,7 @@ switch ($currentDay) {
 
     case '02230':
         // 每周日晚上10点半询问
-        outgoing(['text' => '这周你打算做什么？']);
+        outgoing(['text' => '你这周干了些什么，有什么问题卡住了吗？']);
         break;
 
     default:
@@ -74,12 +74,12 @@ switch ($currentDay) {
 switch ($currentTime) {
     case '0930':
         // 每天早上9点半询问
-        outgoing(['text' => '这周你打算做什么？']);
+        outgoing(['text' => '你今天打算做什么？']);
         break;
 
     case '2200':
         // 每天晚上10点询问
-        outgoing(['text' => '这周你打算做什么？']);
+        outgoing(['text' => '你今天做了些什么，目前有什么问题卡住了吗？']);
         break;
 
     default:
