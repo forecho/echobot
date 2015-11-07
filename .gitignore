@@ -1,0 +1,6 @@
+config.php
+
+# phpstorm project files
+.idea
+
+log*
