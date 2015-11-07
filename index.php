@@ -3,7 +3,7 @@
  * @Author: forecho
  * @Date:   2015-11-07 11:28:57
  * @Last Modified by:   forecho
- * @Last Modified time: 2015-11-07 12:39:21
+ * @Last Modified time: 2015-11-07 16:53:30
  */
 
 require_once 'curl.php';
@@ -26,7 +26,7 @@ function outgoing($data = '')
     }
 
     $config = require_once 'config.php';
-    foreach ($config['urls'] as $key => $value) {
+    foreach ((array)$config['urls'] as $key => $value) {
         $response = $curl->post($value, $vars = ['payload' => json_encode($data)]);
         if ($response->headers['Status-Code'] == 200) {
             echo "{$key} is ok\n";
@@ -40,30 +40,55 @@ function outgoing($data = '')
 
 /**
  * 写日志，方便测试
- * 注意：服务器需要开通 fopen 配置
  * @param string $word 要写入日志里的文本内容 默认值：空值
  */
 function logs($word = '')
 {
     $data = date('Ym');
-    $fp = fopen("logs/log-{$data}.txt", "a");
-    flock($fp, LOCK_EX);
-    fwrite($fp, "执行日期：" . strftime("%Y%m%d%H%M%S", time()) . "\n" . $word . "\n");
-    flock($fp, LOCK_UN);
-    fclose($fp);
+    file_put_contents("logs" . DIRECTORY_SEPARATOR . "log-{$data}.log", "执行日期：" . strftime("%Y%m%d%H%M%S", time()) . "\n" . $word . "\n", FILE_APPEND);
 }
 
-echo '$_POST接收:<br/>';
-logs('$_POST接收:' . json_encode($_POST));
-print_r($_POST);
-echo '<hr/>';
 
-echo 'php://input接收:<br/>';
-$data = file_get_contents('php://input');
-logs('php://input接收:' . json_encode($data));
-if ($data) {
-//    outgoing(['text' => 'php://input接收:' . json_encode($data)]);
+//$currentTime = date('YmdHis');
+$currentTime = date('Hi');
+
+//w  星期中的第几天，数字表示 0（星期天）到 6（星期六）
+$currentDay = date('wHi');
+
+switch ($currentDay) {
+    case '10900':
+        // 每周一早上9点询问
+        outgoing(['text' => '这周你打算做什么？']);
+        break;
+
+    case '02230':
+        // 每周日晚上10点半询问
+        outgoing(['text' => '这周你打算做什么？']);
+        break;
+
+    default:
+        # code...
+        break;
 }
-print_r($data); 
 
+switch ($currentTime) {
+    case '0930':
+        // 每天早上9点半询问
+        outgoing(['text' => '这周你打算做什么？']);
+        break;
+
+    case '2200':
+        // 每天晚上10点询问
+        outgoing(['text' => '这周你打算做什么？']);
+        break;
+
+    default:
+        # code...
+        break;
+}
+
+if (isset($_POST['text']) && strstr($_POST['text'], 'over')) {
+    logs('$_POST接收:' . json_encode($_POST, JSON_UNESCAPED_UNICODE));
+//    outgoing(['text' => '目前有什么问题卡住了吗？']);
+}
 
