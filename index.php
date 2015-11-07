@@ -62,7 +62,7 @@ echo 'php://input接收:<br/>';
 $data = file_get_contents('php://input');
 logs('php://input接收:' . json_encode($data));
 if ($data) {
-    outgoing(['text' => 'php://input接收:' . json_encode($data)]);
+//    outgoing(['text' => 'php://input接收:' . json_encode($data)]);
 }
 print_r($data); 
 
