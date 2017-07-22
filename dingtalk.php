@@ -52,33 +52,29 @@ function logs($word = '')
     file_put_contents("logs" . DIRECTORY_SEPARATOR . "log-{$data}.log", "执行日期：" . strftime("%Y%m%d%H%M%S", time()) . "\n" . $word . "\n", FILE_APPEND);
 }
 
-
-//$currentTime = date('YmdHis');
-$currentTime = date('Hi');
-
 //w  星期中的第几天，数字表示 0（星期天）到 6（星期六）
 $currentDay = date('wHi');
 
 switch ($currentDay) {
+    case '10950':
+    case '20950':
+    case '30950':
+    case '40950':
+    case '50950':
+        // 周一至周五早上9点50分询问
+        outgoing(['text' => ['content' => '【早会小助手】还有10分钟准备开早会了']]);
+        break;
+    case '11000':
+    case '21000':
+    case '31000':
+    case '41000':
+    case '51000':
+        // 周一至周五早上10点询问
+        outgoing(['text' => ['content' => '【早会小助手】现在开始开早会了']]);
+        break;
     case '51810':
         // 每周五下午6点10分询问
         outgoing(['text' => ['content' => '【周报小助手】各位下班之前记得写周报']]);
-        break;
-
-    default:
-        # code...
-        break;
-}
-
-switch ($currentTime) {
-    case '0950':
-        // 每天早上9点50分询问
-        outgoing(['text' => ['content' => '【早会小助手】还有10分钟准备开早会了']]);
-        break;
-
-    case '1000':
-        // 每天早上10点询问
-        outgoing(['text' => ['content' => '【早会小助手】现在开始开早会了']]);
         break;
 
     default:
