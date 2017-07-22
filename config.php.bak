@@ -10,5 +10,11 @@ return [
     'urls' => [
         'pubuim' => 'xxxx',
         'slack' => 'xxxx'
+    ],
+    'ding' => [
+        'url' => 'xxxx', // 钉钉 Webhook 地址
+        'atMobiles' => [
+            'xxxx'
+        ]
     ]
 ];

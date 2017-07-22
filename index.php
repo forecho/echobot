@@ -14,10 +14,10 @@ require_once 'curl.php';
  *     username: "机器人名称", // 可选
  *     icon_url: "头像地址" // 可选
  * }
- * @param string $data
+ * @param array $data
  * @throws Exception
  */
-function outgoing($data = '')
+function outgoing($data = [])
 {
     $curl = new Curl;
 
